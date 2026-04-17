@@ -1,0 +1,106 @@
+---
+const packages = [
+  {
+    name: 'Agent Starter',
+    price: '$3K ~ $5K',
+    timeline: '1 ~ 2 weeks',
+    description: 'Single AI agent or chatbot with RAG pipeline. Perfect for automating one workflow or building an intelligent assistant.',
+    features: [
+      'Custom AI agent / chatbot',
+      'RAG with your documents',
+      'API integration',
+      'Deployment & handoff',
+    ],
+    accent: false,
+  },
+  {
+    name: 'Agent System',
+    price: '$10K ~ $25K',
+    timeline: '4 ~ 8 weeks',
+    description: 'Multi-agent orchestration with knowledge graph integration. For teams that need agents that collaborate and reason.',
+    features: [
+      'Multi-agent orchestration',
+      'Knowledge graph (Neo4j)',
+      'Tool-use & function calling',
+      'Monitoring dashboard',
+      'Documentation & training',
+    ],
+    accent: true,
+  },
+  {
+    name: 'Agent Enterprise',
+    price: '$25K ~ $50K',
+    timeline: '8 ~ 16 weeks',
+    description: 'Full enterprise AI infrastructure. Multiple agent teams, system integration, CI/CD, and production hardening.',
+    features: [
+      'Enterprise-grade architecture',
+      'Multiple agent teams',
+      'System integration (ERP, CRM)',
+      'CI/CD & observability',
+      'SLA & ongoing support',
+    ],
+    accent: false,
+  },
+  {
+    name: 'Retainer',
+    price: '$3K ~ $8K / mo',
+    timeline: 'Ongoing',
+    description: 'Continuous AI system maintenance, optimization, and evolution. Keep your agents sharp and your costs down.',
+    features: [
+      'Performance monitoring',
+      'Prompt & model optimization',
+      'New feature development',
+      'Priority support',
+    ],
+    accent: false,
+  },
+];
+---
+
+<section id="services" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up mb-16">
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// services</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+        Engagement Models
+      </h2>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">
+        From a single chatbot to a full enterprise agent ecosystem. Pick the scope that fits — we handle the rest.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      {packages.map((pkg) => (
+        <div
+          class:list={[
+            'fade-up rounded-xl p-8 border transition-colors',
+            pkg.accent
+              ? 'bg-[var(--color-accent-dim)] border-[var(--color-line-accent)] glow-card'
+              : 'bg-[var(--color-surface)] border-[var(--color-line)] hover:border-[var(--color-line-accent)]',
+          ]}
+        >
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h3 class="text-xl font-semibold">{pkg.name}</h3>
+              <p class="font-mono text-sm text-[var(--color-muted)] mt-1">{pkg.timeline}</p>
+            </div>
+            <div class="font-mono text-lg font-bold text-[var(--color-accent)]">{pkg.price}</div>
+          </div>
+
+          <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+            {pkg.description}
+          </p>
+
+          <ul class="space-y-2">
+            {pkg.features.map((f) => (
+              <li class="text-sm text-[var(--color-text-secondary)] flex items-start gap-2">
+                <span class="text-[var(--color-accent-green)] mt-0.5 shrink-0">+</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

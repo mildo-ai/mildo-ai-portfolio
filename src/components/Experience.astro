@@ -1,0 +1,95 @@
+---
+const jobs = [
+  {
+    period: '2025 ~ Present',
+    company: 'LBox',
+    role: 'Sole ML Engineer',
+    description: 'Building legal AI agent systems. End-to-end ownership of ML infrastructure, from data pipelines to production deployment.',
+    tags: ['Legal AI', 'Agent Systems', 'ML Infrastructure'],
+  },
+  {
+    period: '2021 ~ 2024',
+    company: 'IBM',
+    role: 'AI Engineer & Security Consultant',
+    description: 'Delivered AI and cybersecurity solutions for enterprise clients. Bridged the gap between security operations and machine learning.',
+    tags: ['Enterprise AI', 'Security', 'Consulting'],
+  },
+  {
+    period: '2011 ~ 2021',
+    company: 'Korean National Police Agency',
+    role: 'Criminal Intelligence Analyst',
+    description: 'Led data-driven criminal intelligence operations. Built analytical frameworks for complex investigations across financial crime and cybercrime.',
+    tags: ['Intelligence Analysis', 'Data Analytics', 'Investigation'],
+  },
+];
+
+const education = [
+  { school: 'Georgia Institute of Technology', degree: 'MS Analytics' },
+  { school: 'Korea University', degree: 'BS Statistics' },
+  { school: 'Korean National Police Academy', degree: 'BA Law' },
+];
+
+const certifications = [
+  'CISSP', 'CFA Level II', 'CKA',
+  'AWS Solutions Architect', 'Azure AI Engineer',
+  'GCP Professional ML Engineer', '+ 12 more',
+];
+---
+
+<section id="experience" class="py-24 md:py-32 bg-[var(--color-surface)]">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up mb-16">
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// team</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+        Our Lead Engineer
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-12">
+      <!-- Work History -->
+      <div class="lg:col-span-2 space-y-8">
+        {jobs.map((job, i) => (
+          <div class="fade-up relative pl-8 border-l border-[var(--color-line)]">
+            <div class="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-[var(--color-accent)] border-2 border-[var(--color-bg)]"></div>
+            <p class="font-mono text-xs text-[var(--color-muted)] mb-1">{job.period}</p>
+            <h3 class="text-lg font-semibold">
+              {job.company} <span class="text-[var(--color-text-secondary)] font-normal">/ {job.role}</span>
+            </h3>
+            <p class="text-sm text-[var(--color-text-secondary)] mt-2 leading-relaxed">{job.description}</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              {job.tags.map((tag) => (
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-[var(--color-surface-2)] text-[var(--color-muted)]">{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Education & Certs -->
+      <div class="space-y-10">
+        <div class="fade-up">
+          <h3 class="font-mono text-sm text-[var(--color-accent)] mb-4">Education</h3>
+          <div class="space-y-4">
+            {education.map((edu) => (
+              <div class="p-4 rounded-lg bg-[var(--color-bg)] border border-[var(--color-line)]">
+                <p class="text-sm font-semibold">{edu.school}</p>
+                <p class="text-xs text-[var(--color-muted)] mt-1">{edu.degree}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="fade-up">
+          <h3 class="font-mono text-sm text-[var(--color-accent)] mb-4">Certifications</h3>
+          <div class="flex flex-wrap gap-2">
+            {certifications.map((cert) => (
+              <span class="text-xs font-mono px-3 py-1.5 rounded-lg bg-[var(--color-bg)] text-[var(--color-text-secondary)] border border-[var(--color-line)]">
+                {cert}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

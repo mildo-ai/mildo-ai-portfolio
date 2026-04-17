@@ -1,0 +1,58 @@
+---
+const categories = [
+  {
+    name: 'AI / ML',
+    icon: '{}',
+    items: ['Claude Code', 'Claude API', 'OpenAI Codex', 'LangChain', 'LangGraph', 'PydanticAI', 'RAG', 'Neo4j KG'],
+  },
+  {
+    name: 'Backend',
+    icon: '>_',
+    items: ['Python', 'FastAPI', 'Node.js'],
+  },
+  {
+    name: 'Frontend',
+    icon: '</>',
+    items: ['React', 'Next.js', 'TypeScript', 'Astro'],
+  },
+  {
+    name: 'Infrastructure',
+    icon: '[ ]',
+    items: ['AWS', 'Azure', 'GCP', 'Cloudflare Pages', 'Docker', 'Kubernetes'],
+  },
+  {
+    name: 'Data',
+    icon: '(i)',
+    items: ['Qdrant', 'Neo4j', 'PostgreSQL', 'Redis', 'SQLite'],
+  },
+];
+---
+
+<section id="stack" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up mb-16">
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// tech_stack</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+        Tools of the Trade
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {categories.map((cat) => (
+        <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6 hover:border-[var(--color-line-accent)] transition-colors">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="font-mono text-sm text-[var(--color-accent)] bg-[var(--color-accent-dim)] px-2 py-1 rounded">{cat.icon}</span>
+            <h3 class="font-semibold text-lg">{cat.name}</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {cat.items.map((item) => (
+              <span class="text-sm font-mono px-3 py-1.5 rounded-lg bg-[var(--color-surface-2)] text-[var(--color-text-secondary)] border border-[var(--color-line)]">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

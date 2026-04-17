@@ -1,0 +1,84 @@
+---
+const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/mildo-ai', icon: 'github' },
+  { label: 'SubSwap', href: 'https://subswap.app', icon: 'subswap' },
+  { label: 'CropCast', href: 'https://cropcast.app', icon: 'cropcast' },
+];
+---
+
+<section id="hero" class="relative min-h-screen flex items-center pt-16">
+  <!-- Background grid -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-32 w-full">
+    <div class="fade-up">
+      <!-- Terminal prompt -->
+      <div class="font-mono text-sm text-[var(--color-muted)] mb-6">
+        <span class="text-[var(--color-accent-green)]">~</span> <span class="text-[var(--color-muted)]">$</span> <span class="text-[var(--color-text-secondary)]">whoami</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+        <span class="text-[var(--color-text)]">Mildo AI</span>
+      </h1>
+
+      <p class="font-mono text-lg md:text-xl text-[var(--color-accent)] mb-8">
+        Agent Architecture & Consulting<span class="cursor-blink">_</span>
+      </p>
+
+      <p class="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed mb-12">
+        We build multi-agent systems that run enterprises.<br class="hidden md:block" />
+        <span class="text-[var(--color-text)]">200+ agents. 6 knowledge graphs. 8 production projects.</span>
+      </p>
+
+      <!-- Social links -->
+      <div class="flex items-center gap-6 mb-12">
+        {socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm font-mono flex items-center gap-2"
+          >
+            <span class="text-[var(--color-accent-green)]">&gt;</span> {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center px-6 py-3 bg-[var(--color-accent)] text-[var(--color-bg)] font-semibold rounded-lg hover:opacity-90 transition-opacity"
+        >
+          Book a consultation
+        </a>
+        <a
+          href="#work"
+          class="inline-flex items-center justify-center px-6 py-3 border border-[var(--color-line-accent)] text-[var(--color-accent)] rounded-lg hover:bg-[var(--color-accent-dim)] transition-colors"
+        >
+          View case studies
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="mt-20 pt-10 border-t border-[var(--color-line)] grid grid-cols-2 md:grid-cols-4 gap-8 fade-up">
+      <div>
+        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">200+</div>
+        <div class="text-sm text-[var(--color-muted)] mt-1">AI Agents Built</div>
+      </div>
+      <div>
+        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">6</div>
+        <div class="text-sm text-[var(--color-muted)] mt-1">Knowledge Graphs</div>
+      </div>
+      <div>
+        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">8</div>
+        <div class="text-sm text-[var(--color-muted)] mt-1">Production Projects</div>
+      </div>
+      <div>
+        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">$0</div>
+        <div class="text-sm text-[var(--color-muted)] mt-1">Infra per SaaS Product</div>
+      </div>
+    </div>
+  </div>
+</section>
