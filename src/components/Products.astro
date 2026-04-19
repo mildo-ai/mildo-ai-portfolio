@@ -9,62 +9,12 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const tr = t(lang);
 
-const products = [
-  {
-    name: 'SubSwap',
-    tagline: 'Global Ingredient Substitute Engine',
-    description: '1,000+ ingredients, 3,005 substitutes, 10 languages. Zero server cost. Ingredient substitution powered by semantic analysis.',
-    url: 'https://subswap.app',
-    status: 'live',
-    metrics: ['1K+ ingredients', '10 languages', '$0 infra'],
-    color: 'emerald',
-    span: 'md:col-span-4',
-    icon: '🍅',
-  },
-  {
-    name: 'CropCast',
-    tagline: 'Agricultural Intelligence Platform',
-    description: 'AI-powered crop market forecasting. 12 futures, 53 agents, daily updates.',
-    url: 'https://cropcast.app',
-    status: 'live',
-    metrics: ['12 futures', '53 agents', 'Daily AI'],
-    color: 'blue',
-    span: 'md:col-span-2',
-    icon: '🌾',
-  },
-  {
-    name: '@fridgey_raid',
-    tagline: "Chef's Assistant — Food Intelligence",
-    description: 'Threads channel powered by Neo4j food KG + KAMIS price crawlers. Confidence-tiered content pipeline.',
-    url: 'https://www.threads.com/@fridgey_raid',
-    status: 'live',
-    metrics: ['Neo4j KG', 'KAMIS data', 'Daily posts'],
-    color: 'orange',
-    span: 'md:col-span-2',
-    icon: '🍳',
-  },
-  {
-    name: '@pourandpair',
-    tagline: 'Pour & Pair — Beverage Intelligence',
-    description: 'Sommelier AI for hyper-specific wine and food pairing. Drink knowledge graph with sommelier-grade intelligence.',
-    url: 'https://www.threads.com/@pourandpair',
-    status: 'live',
-    metrics: ['Drink KG', 'Pairing AI', 'Nightly posts'],
-    color: 'purple',
-    span: 'md:col-span-2',
-    icon: '🍷',
-  },
-  {
-    name: 'Tessera',
-    tagline: 'Art Intelligence for Professionals',
-    description: 'MCP-powered knowledge graph for curators, gallerists & collectors. CIDOC CRM ontology.',
-    url: null,
-    status: 'soon',
-    metrics: ['CIDOC CRM', 'Provenance KG', 'Market signals'],
-    color: 'pink',
-    span: 'md:col-span-2',
-    icon: '🎨',
-  },
+const meta = [
+  { url: 'https://subswap.app',                      status: 'live', metrics: ['1K+ ingredients', '10 languages', '$0 infra'], color: 'emerald', span: 'md:col-span-4', icon: '🍅' },
+  { url: 'https://cropcast.app',                     status: 'live', metrics: ['12 futures', '53 agents', 'Daily AI'],        color: 'blue',    span: 'md:col-span-2', icon: '🌾' },
+  { url: 'https://www.threads.com/@fridgey_raid',    status: 'live', metrics: ['Neo4j KG', 'KAMIS data', 'Daily posts'],      color: 'orange',  span: 'md:col-span-2', icon: '🍳' },
+  { url: 'https://www.threads.com/@pourandpair',     status: 'live', metrics: ['Drink KG', 'Pairing AI', 'Nightly posts'],    color: 'purple',  span: 'md:col-span-2', icon: '🍷' },
+  { url: null,                                       status: 'soon', metrics: ['CIDOC CRM', 'Provenance KG', 'Market signals'],color: 'pink',    span: 'md:col-span-2', icon: '🎨' },
 ];
 
 const colorMap: Record<string, { accent: string; glow: string; badge: string }> = {
@@ -80,50 +30,43 @@ const colorMap: Record<string, { accent: string; glow: string; badge: string }> 
   <div class="max-w-6xl mx-auto px-6">
     <div class="fade-up mb-16">
       <p class="font-mono text-sm text-[var(--color-accent)] mb-3">{tr.products.label}</p>
-      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-        {tr.products.title}
-      </h2>
-      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">
-        {tr.products.sub}
-      </p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">{tr.products.title}</h2>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">{tr.products.sub}</p>
     </div>
 
     <!-- Bento grid -->
     <div class="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[240px]">
-      {products.map((p) => {
-        const c = colorMap[p.color];
+      {tr.products.items.map((p, i) => {
+        const m = meta[i];
+        const c = colorMap[m.color];
         return (
-          <div class={`product-card fade-up ${p.span} rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-8 relative group overflow-hidden hover:border-[var(--color-line-accent)]`}>
-            <!-- Color glow overlay -->
+          <div class={`product-card fade-up ${m.span} rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-8 relative group overflow-hidden hover:border-[var(--color-line-accent)]`}>
             <div class={`absolute inset-0 bg-gradient-to-br ${c.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
-            <!-- Icon watermark -->
-            <div class="absolute top-4 right-5 text-5xl opacity-10 group-hover:opacity-20 transition-opacity select-none">{p.icon}</div>
+            <div class="absolute top-4 right-5 text-5xl opacity-10 group-hover:opacity-20 transition-opacity select-none">{m.icon}</div>
 
             <div class="relative z-10 flex flex-col h-full">
               <div class="flex items-center gap-2.5 mb-3">
                 <h3 class={`font-bold text-xl ${c.accent}`}>{p.name}</h3>
-                {p.status === 'live' ? (
+                {m.status === 'live' ? (
                   <span class={`text-[10px] font-mono px-2 py-0.5 rounded-sm border uppercase tracking-widest ${c.badge}`}>live</span>
                 ) : (
                   <span class="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-[var(--color-surface-3)] text-[var(--color-muted)] border border-[var(--color-line)] uppercase tracking-widest">soon</span>
                 )}
               </div>
               <p class="text-xs text-[var(--color-muted)] mb-4 font-mono">{p.tagline}</p>
-              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1">
-                {p.description}
-              </p>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1">{p.description}</p>
               <div class="mt-auto">
-                {p.url ? (
+                {m.url ? (
                   <a
-                    href={p.url}
+                    href={m.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     class={`inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest hover:gap-2.5 transition-all ${c.accent}`}
                   >
-                    Explore <span>↗</span>
+                    {tr.products.explore} <span>↗</span>
                   </a>
                 ) : (
-                  <span class="text-xs font-mono text-[var(--color-muted)] uppercase tracking-widest">Coming soon</span>
+                  <span class="text-xs font-mono text-[var(--color-muted)] uppercase tracking-widest">{tr.products.comingSoon}</span>
                 )}
               </div>
             </div>
