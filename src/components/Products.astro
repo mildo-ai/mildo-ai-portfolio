@@ -1,0 +1,112 @@
+---
+const products = [
+  {
+    name: 'SubSwap',
+    tagline: 'Global Ingredient Substitute Engine',
+    description: '1,000+ ingredients, 3,005 substitutes, 10 languages. Zero server cost.',
+    url: 'https://subswap.app',
+    status: 'live',
+    metrics: ['1K+ ingredients', '10 languages', '$0 infra'],
+    color: 'green',
+  },
+  {
+    name: 'CropCast',
+    tagline: 'Agricultural Intelligence Platform',
+    description: 'AI-powered crop market forecasting. 12 futures, 53 agents, daily updates.',
+    url: 'https://cropcast.app',
+    status: 'live',
+    metrics: ['12 futures', '53 agents', 'Daily AI'],
+    color: 'blue',
+  },
+  {
+    name: '@fridgey_raid',
+    tagline: "Chef's Assistant — Food Intelligence",
+    description: 'Threads channel powered by Neo4j food KG + KAMIS price crawlers. Confidence-tiered content pipeline.',
+    url: 'https://www.threads.com/@fridgey_raid',
+    status: 'live',
+    metrics: ['Neo4j KG', 'KAMIS data', 'Daily posts'],
+    color: 'orange',
+  },
+  {
+    name: '@pourandpair',
+    tagline: 'Pour & Pair — Beverage Intelligence',
+    description: 'Threads channel for wine, whisky & food pairing. Drink knowledge graph with sommelier-grade intelligence.',
+    url: 'https://www.threads.com/@pourandpair',
+    status: 'live',
+    metrics: ['Drink KG', 'Pairing AI', 'Nightly posts'],
+    color: 'purple',
+  },
+  {
+    name: 'Tessera',
+    tagline: 'Art Intelligence for Professionals',
+    description: 'MCP-powered knowledge graph for curators, gallerists & collectors. CIDOC CRM ontology. Provenance, market signals, and cultural context in one brain.',
+    url: null,
+    status: 'soon',
+    metrics: ['CIDOC CRM', 'Provenance KG', 'Market signals'],
+    color: 'pink',
+  },
+];
+
+const colorMap: Record<string, { accent: string; dim: string; border: string }> = {
+  green:  { accent: 'text-emerald-400',  dim: 'bg-emerald-400/10',  border: 'border-emerald-400/30' },
+  blue:   { accent: 'text-blue-400',     dim: 'bg-blue-400/10',     border: 'border-blue-400/30' },
+  orange: { accent: 'text-orange-400',   dim: 'bg-orange-400/10',   border: 'border-orange-400/30' },
+  purple: { accent: 'text-purple-400',   dim: 'bg-purple-400/10',   border: 'border-purple-400/30' },
+  pink:   { accent: 'text-pink-400',     dim: 'bg-pink-400/10',     border: 'border-pink-400/30' },
+};
+---
+
+<section id="products" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up mb-16">
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// products</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+        Live Products
+      </h2>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">
+        AI-native products built in-house. Each one runs on the same agent infrastructure we sell.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {products.map((p) => {
+        const c = colorMap[p.color];
+        return (
+          <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6 hover:border-[var(--color-line-accent)] transition-colors flex flex-col">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <h3 class={`font-bold text-lg ${c.accent}`}>{p.name}</h3>
+                  {p.status === 'live' ? (
+                    <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/30">live</span>
+                  ) : (
+                    <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-pink-400/10 text-pink-400 border border-pink-400/30">soon</span>
+                  )}
+                </div>
+                <p class="text-xs text-[var(--color-muted)]">{p.tagline}</p>
+              </div>
+              {p.url && (
+                <a href={p.url} target="_blank" rel="noopener noreferrer"
+                  class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors ml-2 shrink-0">
+                  <span class="font-mono text-sm">↗</span>
+                </a>
+              )}
+            </div>
+
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
+              {p.description}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5">
+              {p.metrics.map((m) => (
+                <span class={`text-xs font-mono px-2.5 py-1 rounded-lg border ${c.dim} ${c.border} ${c.accent}`}>
+                  {m}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+---
+// HIDDEN — not rendered in index.astro yet
+// Uncomment import in index.astro when ready to go public
+
+const timeline = [
+  {
+    period: '2011 ~ 2021',
+    role: '경찰청 범죄정보 분석관',
+    org: 'Korean National Police Agency',
+    story: '10년간 금융범죄·사이버범죄 수사에서 데이터 기반 수사 체계를 구축했다. 구조화되지 않은 대규모 정보를 다루며 "지식 그래프"의 원형을 직접 경험했다.',
+    tag: '데이터 인텔리전스',
+  },
+  {
+    period: '2021 ~ 2024',
+    role: 'AI Engineer & Security Consultant',
+    org: 'IBM Korea',
+    story: '엔터프라이즈 고객에게 AI·보안 솔루션을 납품했다. 조직이 AI를 도입하지 못하는 이유가 기술이 아닌 구조 문제임을 깨달았다.',
+    tag: '엔터프라이즈 AI',
+  },
+  {
+    period: '2025 ~',
+    role: 'Founder, Mildo AI',
+    org: 'LBox + 자체 창업',
+    story: '법률 AI 엔지니어로 재직하며 동시에 밀도 AI를 창업했다. AI 컨설팅으로 현금흐름을 만들고, 산 마르자노 스마트팜과 크루즈픽을 자회사로 키우는 구조를 설계했다.',
+    tag: 'AI × 농업 × 여행',
+  },
+];
+---
+
+<!-- Story section — hidden until founder is ready to go public -->
+<section id="story" class="py-24 md:py-32 bg-[var(--color-surface)]">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up mb-16">
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// founder_story</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+        Why AI + Agri + Travel
+      </h2>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-2xl">
+        경찰 → IBM → 창업. 비선형적인 경력이 어떻게 AI 지주회사로 이어졌는가.
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- vertical line -->
+      <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--color-line)] md:left-1/2"></div>
+
+      <div class="space-y-12">
+        {timeline.map((t, i) => (
+          <div class={`fade-up relative flex gap-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+            <!-- dot -->
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-[var(--color-accent)] border-2 border-[var(--color-bg)] -translate-x-1.5 top-1.5"></div>
+
+            <!-- spacer for alternating layout -->
+            <div class="hidden md:block md:w-1/2"></div>
+
+            <!-- card -->
+            <div class="ml-12 md:ml-0 md:w-1/2 md:px-8">
+              <div class="rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] p-6 hover:border-[var(--color-line-accent)] transition-colors">
+                <p class="font-mono text-xs text-[var(--color-muted)] mb-2">{t.period}</p>
+                <h3 class="font-semibold text-lg">{t.role}</h3>
+                <p class="text-sm text-[var(--color-accent)] mb-3">{t.org}</p>
+                <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">{t.story}</p>
+                <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-[var(--color-accent-dim)] text-[var(--color-accent)] border border-[var(--color-line-accent)]">
+                  {t.tag}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
