@@ -1,130 +1,72 @@
 ---
-const cases = [
-  {
-    number: '01',
-    title: 'claude-agents-hub — Cross-Project Agent Hub',
-    subtitle: 'Plugin-style installer for 200+ agents across 8 projects',
-    url: 'https://github.com/mildo-ai/claude-agents-hub',
-    description: 'Built a unified agent management hub inspired by DGM-H (HyperAgents). Profile-based installer deploys agent systems to any project in one command. Integrates RTK (60-90% token savings), Slack MCP, Obsidian CLI, Codex Plugin, and Google Stitch. DGM-style archive tracks agent performance for cross-project transfer learning.',
-    tags: ['Claude Code', 'Multi-Agent', 'DGM-H', 'Shell', 'MCP'],
-    metrics: [
-      { label: 'Agents', value: '200+' },
-      { label: 'Projects', value: '8' },
-      { label: 'Integrations', value: '5' },
-      { label: 'Token Savings', value: '90%' },
-    ],
-  },
-  {
-    number: '02',
-    title: '47-Agent Enterprise Orchestration',
-    subtitle: 'Full-company AI for an agricultural tech startup',
-    description: 'Designed and built a 47-agent system spanning 9 departments — strategy, legal, finance, tax, production, R&D, marketing, sales, facility. CEO orchestrator routes to Directors, who delegate to sub-agents. RALPH loops enforce quality with Worker → Reviewer → SHIP/REVISE cycles. 4 LLM tiers minimize cost.',
-    tags: ['Claude API', 'Multi-Agent', 'Orchestration', 'RALPH Loop', 'Codex'],
-    metrics: [
-      { label: 'Agents', value: '47' },
-      { label: 'Departments', value: '9' },
-      { label: 'LLM Tiers', value: '4' },
-      { label: 'BG Workers', value: '8' },
-    ],
-  },
-  {
-    number: '03',
-    title: 'CropCast — Agricultural Intelligence Platform',
-    subtitle: 'AI-powered crop market & weather intelligence',
-    url: 'https://cropcast.app',
-    description: 'Full-stack agricultural intelligence platform combining real-time crop price data, weather forecasting, and market analysis. Agent-driven data pipeline ingests government agricultural data sources, processes with LLM intelligence layers, and delivers actionable farm-business insights.',
-    tags: ['Next.js', 'Python', 'Claude API', 'Data Pipeline', 'Cloudflare'],
-    metrics: [
-      { label: 'Data Sources', value: '5+' },
-      { label: 'Crop Types', value: '50+' },
-      { label: 'Update Freq', value: 'Daily' },
-      { label: 'Infra Cost', value: '$0' },
-    ],
-  },
-  {
-    number: '04',
-    title: 'Food Intelligence KG — Chef\'s Assistant + Pour & Pair',
-    subtitle: 'Dual Neo4j knowledge graphs powering Threads AI channels',
-    description: 'Two production Threads channels (@fridgey_raid, @pourandpair) powered by Neo4j knowledge graphs and multi-agent content pipelines. Strategist → Writer → Editor agent chain generates confidence-tiered food/beverage intelligence. Crawlers ingest KAMIS wholesale prices, weather, and aT distribution data daily.',
-    tags: ['Neo4j', 'Knowledge Graph', 'Python', 'Threads API', 'KAMIS'],
-    metrics: [
-      { label: 'KG Domains', value: '6' },
-      { label: 'Graph Nodes', value: '10K+' },
-      { label: 'Live Channels', value: '2' },
-      { label: 'Data Sources', value: '5' },
-    ],
-  },
-  {
-    number: '05',
-    title: 'SubSwap — Global Ingredient Substitute Engine',
-    subtitle: 'Full-stack SaaS from zero to production in a weekend',
-    url: 'https://subswap.app',
-    description: 'Shipped a live product in 2 days: 1,000+ ingredients, 3,005 substitutes, 10 languages, zero server cost. React + TypeScript + Fuse.js on Cloudflare Pages. MildoCTA integration drives brand awareness for the farm startup. SEO-optimized with affiliate monetization roadmap.',
-    tags: ['React', 'TypeScript', 'Fuse.js', 'Cloudflare Pages', 'i18n'],
-    metrics: [
-      { label: 'Ingredients', value: '1,000+' },
-      { label: 'Substitutes', value: '3,005' },
-      { label: 'Languages', value: '10' },
-      { label: 'Infra Cost', value: '$0' },
-    ],
-  },
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const tr = t(lang);
+
+const caseMeta = [
+  { number: '01', title: 'claude-agents-hub — Cross-Project Agent Hub',   url: 'https://github.com/mildo-ai/claude-agents-hub', tags: ['Claude Code', 'Multi-Agent', 'DGM-H', 'Shell', 'MCP'],          metrics: [{ value: '200+' }, { value: '8' }, { value: '5' }, { value: '90%' }] },
+  { number: '02', title: '47-Agent Enterprise Orchestration',              url: null,                                           tags: ['Claude API', 'Multi-Agent', 'Orchestration', 'RALPH Loop', 'Codex'], metrics: [{ value: '47' },   { value: '9' }, { value: '4' }, { value: '8' }]   },
+  { number: '03', title: 'CropCast — Agricultural Intelligence Platform',  url: 'https://cropcast.app',                         tags: ['Next.js', 'Python', 'Claude API', 'Data Pipeline', 'Cloudflare'],   metrics: [{ value: '5+' },  { value: '50+' }, { value: 'Daily' }, { value: '$0' }] },
+  { number: '04', title: "Food Intelligence KG — Chef's Assistant + Pour & Pair", url: null,                                  tags: ['Neo4j', 'Knowledge Graph', 'Python', 'Threads API', 'KAMIS'],       metrics: [{ value: '6' },   { value: '10K+' }, { value: '2' }, { value: '5' }] },
+  { number: '05', title: 'SubSwap — Global Ingredient Substitute Engine',  url: 'https://subswap.app',                         tags: ['React', 'TypeScript', 'Fuse.js', 'Cloudflare Pages', 'i18n'],       metrics: [{ value: '1,000+' }, { value: '3,005' }, { value: '10' }, { value: '$0' }] },
 ];
 ---
 
 <section id="work" class="py-24 md:py-32 bg-[var(--color-surface)]">
   <div class="max-w-6xl mx-auto px-6">
     <div class="fade-up mb-16">
-      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// case_studies</p>
-      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-        Selected Work
-      </h2>
-      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">
-        Real systems in production. Not demos, not prototypes.
-      </p>
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">{tr.caseStudies.label}</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">{tr.caseStudies.title}</h2>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">{tr.caseStudies.sub}</p>
     </div>
 
     <div class="space-y-8">
-      {cases.map((c) => (
-        <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] p-8 md:p-10 hover:border-[var(--color-line-accent)] transition-colors">
-          <div class="flex items-start gap-6 mb-6">
-            <span class="font-mono text-4xl font-bold text-[var(--color-surface-3)]">{c.number}</span>
-            <div class="flex-1">
-              <div class="flex items-center gap-3 flex-wrap">
-                <h3 class="text-xl md:text-2xl font-semibold">{c.title}</h3>
-                {c.url && (
-                  <a href={c.url} target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-[var(--color-accent)] border border-[var(--color-line-accent)] px-2 py-0.5 rounded hover:bg-[var(--color-accent-dim)] transition-colors">
-                    ↗ live
-                  </a>
-                )}
+      {caseMeta.map((meta, i) => {
+        const c = tr.caseStudies.cases[i];
+        return (
+          <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] p-8 md:p-10 hover:border-[var(--color-line-accent)] transition-colors">
+            <div class="flex items-start gap-6 mb-6">
+              <span class="font-mono text-4xl font-bold text-[var(--color-surface-3)]">{meta.number}</span>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 flex-wrap">
+                  <h3 class="text-xl md:text-2xl font-semibold">{meta.title}</h3>
+                  {meta.url && (
+                    <a href={meta.url} target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-[var(--color-accent)] border border-[var(--color-line-accent)] px-2 py-0.5 rounded hover:bg-[var(--color-accent-dim)] transition-colors">
+                      ↗ {tr.caseStudies.liveLabel}
+                    </a>
+                  )}
+                </div>
+                <p class="text-sm text-[var(--color-muted)] mt-1">{c.subtitle}</p>
               </div>
-              <p class="text-sm text-[var(--color-muted)] mt-1">{c.subtitle}</p>
+            </div>
+
+            <p class="text-[var(--color-text-secondary)] leading-relaxed mb-6 max-w-3xl">{c.description}</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 rounded-lg bg-[var(--color-surface)]">
+              {meta.metrics.map((m, j) => (
+                <div class="text-center">
+                  <div class="font-mono text-xl font-bold text-[var(--color-accent)]">{m.value}</div>
+                  <div class="text-xs text-[var(--color-muted)] mt-1">{c.metricLabels[j]}</div>
+                </div>
+              ))}
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              {meta.tags.map((tag) => (
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[var(--color-accent-dim)] text-[var(--color-accent)] border border-[var(--color-line-accent)]">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
-
-          <p class="text-[var(--color-text-secondary)] leading-relaxed mb-6 max-w-3xl">
-            {c.description}
-          </p>
-
-          <!-- Metrics -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 rounded-lg bg-[var(--color-surface)]">
-            {c.metrics.map((m) => (
-              <div class="text-center">
-                <div class="font-mono text-xl font-bold text-[var(--color-accent)]">{m.value}</div>
-                <div class="text-xs text-[var(--color-muted)] mt-1">{m.label}</div>
-              </div>
-            ))}
-          </div>
-
-          <!-- Tags -->
-          <div class="flex flex-wrap gap-2">
-            {c.tags.map((tag) => (
-              <span class="text-xs font-mono px-3 py-1 rounded-full bg-[var(--color-accent-dim)] text-[var(--color-accent)] border border-[var(--color-line-accent)]">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
