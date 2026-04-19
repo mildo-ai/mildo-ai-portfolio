@@ -7,20 +7,20 @@ import Products from '../components/Products.astro';
 import Services from '../components/Services.astro';
 import CaseStudies from '../components/CaseStudies.astro';
 import TechStack from '../components/TechStack.astro';
-import Experience from '../components/Experience.astro';
-// import Story from '../components/Story.astro'; // hidden — not public yet
 import Contact from '../components/Contact.astro';
+import { t } from '../i18n/translations';
+
+const lang = 'en';
+const tr = t(lang);
 ---
 
-<Base title="Mildo AI — Intelligent Companies">
-  <Nav />
-  <Hero />
-  <Ventures />
-  <Products />
+<Base title={tr.siteTitle} description={tr.siteDesc} lang={lang}>
+  <Nav lang={lang} />
+  <Hero lang={lang} />
+  <Ventures lang={lang} />
+  <Products lang={lang} />
   <Services />
   <CaseStudies />
   <TechStack />
-  <Experience />
-  {/* <Story /> */}
-  <Contact />
+  <Contact lang={lang} />
 </Base>

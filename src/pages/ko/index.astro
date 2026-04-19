@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import Ventures from '../../components/Ventures.astro';
+import Products from '../../components/Products.astro';
+import Services from '../../components/Services.astro';
+import CaseStudies from '../../components/CaseStudies.astro';
+import TechStack from '../../components/TechStack.astro';
+import Contact from '../../components/Contact.astro';
+import { t } from '../../i18n/translations';
+
+const lang = 'ko' as const;
+const tr = t(lang);
+---
+
+<Base title={tr.siteTitle} description={tr.siteDesc} lang={lang}>
+  <Nav lang={lang} />
+  <Hero lang={lang} />
+  <Ventures lang={lang} />
+  <Products lang={lang} />
+  <Services />
+  <CaseStudies />
+  <TechStack />
+  <Contact lang={lang} />
+</Base>

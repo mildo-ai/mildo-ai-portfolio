@@ -1,33 +1,46 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const tr = t(lang);
+
 const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/mildo-ai', icon: 'github' },
-  { label: 'SubSwap', href: 'https://subswap.app', icon: 'subswap' },
-  { label: 'CropCast', href: 'https://cropcast.app', icon: 'cropcast' },
+  { label: 'GitHub', href: 'https://github.com/mildo-ai' },
+  { label: 'SubSwap', href: 'https://subswap.app' },
+  { label: 'CropCast', href: 'https://cropcast.app' },
 ];
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center pt-16">
-  <!-- Background grid -->
-  <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+<section id="hero" class="relative min-h-screen flex items-center pt-24">
+  <!-- Glow orb background -->
+  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[var(--color-accent)]/5 rounded-full blur-[120px] pointer-events-none"></div>
+  <!-- Grid -->
+  <div class="absolute inset-0 opacity-[0.025]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
 
-  <div class="max-w-6xl mx-auto px-6 py-20 md:py-32 w-full">
+  <div class="relative max-w-6xl mx-auto px-6 py-20 md:py-32 w-full z-10">
     <div class="fade-up">
-      <!-- Terminal prompt -->
-      <div class="font-mono text-sm text-[var(--color-muted)] mb-6">
-        <span class="text-[var(--color-accent-green)]">~</span> <span class="text-[var(--color-muted)]">$</span> <span class="text-[var(--color-text-secondary)]">whoami</span>
+      <!-- Terminal badge -->
+      <div class="inline-flex items-center gap-3 bg-[var(--color-surface)] px-4 py-2 rounded-lg mb-8 border border-[var(--color-line)]">
+        <span class="font-mono text-sm text-[var(--color-accent-green)]">~ $</span>
+        <span class="font-mono text-sm text-[var(--color-text-secondary)]">whoami</span>
       </div>
 
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
         <span class="text-[var(--color-text)]">Mildo AI</span>
       </h1>
 
-      <p class="font-mono text-lg md:text-xl text-[var(--color-accent)] mb-8">
-        We build intelligent companies.<span class="cursor-blink">_</span>
+      <p class="font-mono text-xl md:text-2xl text-[var(--color-accent)] mb-8 font-medium">
+        {tr.hero.tagline}<span class="cursor-blink"></span>
       </p>
 
       <p class="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed mb-12">
-        AI consulting · smart farm · travel tech — one holding company.<br class="hidden md:block" />
-        <span class="text-[var(--color-text)]">200+ agents. 6 knowledge graphs. 8 production projects.</span>
+        {tr.hero.sub}<br class="hidden md:block" />
+        <span class="text-[var(--color-text)]">{tr.hero.highlight}</span>
       </p>
 
       <!-- Social links -->
@@ -37,48 +50,38 @@ const socialLinks = [
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm font-mono flex items-center gap-2"
+            class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm font-mono flex items-center gap-1.5"
           >
             <span class="text-[var(--color-accent-green)]">&gt;</span> {link.label}
           </a>
         ))}
       </div>
 
-      <!-- CTA -->
+      <!-- CTAs -->
       <div class="flex flex-col sm:flex-row gap-4">
         <a
           href="#contact"
-          class="inline-flex items-center justify-center px-6 py-3 bg-[var(--color-accent)] text-[var(--color-bg)] font-semibold rounded-lg hover:opacity-90 transition-opacity"
+          class="inline-flex items-center justify-center px-8 py-3.5 bg-[var(--color-accent)] text-[var(--color-bg)] font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm uppercase tracking-wider"
         >
-          Book a consultation
+          {tr.hero.cta1}
         </a>
         <a
           href="#work"
-          class="inline-flex items-center justify-center px-6 py-3 border border-[var(--color-line-accent)] text-[var(--color-accent)] rounded-lg hover:bg-[var(--color-accent-dim)] transition-colors"
+          class="inline-flex items-center justify-center px-8 py-3.5 border border-[var(--color-line-accent)] text-[var(--color-accent)] rounded-lg hover:bg-[var(--color-accent-dim)] transition-colors text-sm uppercase tracking-wider"
         >
-          View case studies
+          {tr.hero.cta2}
         </a>
       </div>
     </div>
 
     <!-- Stats bar -->
     <div class="mt-20 pt-10 border-t border-[var(--color-line)] grid grid-cols-2 md:grid-cols-4 gap-8 fade-up">
-      <div>
-        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">200+</div>
-        <div class="text-sm text-[var(--color-muted)] mt-1">AI Agents Built</div>
-      </div>
-      <div>
-        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">6</div>
-        <div class="text-sm text-[var(--color-muted)] mt-1">Knowledge Graphs</div>
-      </div>
-      <div>
-        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">8</div>
-        <div class="text-sm text-[var(--color-muted)] mt-1">Production Projects</div>
-      </div>
-      <div>
-        <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">$0</div>
-        <div class="text-sm text-[var(--color-muted)] mt-1">Infra per SaaS Product</div>
-      </div>
+      {tr.hero.stats.map((stat) => (
+        <div>
+          <div class="font-mono text-3xl font-bold text-[var(--color-accent)]">{stat.value}</div>
+          <div class="text-xs text-[var(--color-muted)] mt-1 uppercase tracking-wider">{stat.label}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>

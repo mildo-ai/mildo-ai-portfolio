@@ -1,13 +1,25 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const tr = t(lang);
+
 const products = [
   {
     name: 'SubSwap',
     tagline: 'Global Ingredient Substitute Engine',
-    description: '1,000+ ingredients, 3,005 substitutes, 10 languages. Zero server cost.',
+    description: '1,000+ ingredients, 3,005 substitutes, 10 languages. Zero server cost. Ingredient substitution powered by semantic analysis.',
     url: 'https://subswap.app',
     status: 'live',
     metrics: ['1K+ ingredients', '10 languages', '$0 infra'],
-    color: 'green',
+    color: 'emerald',
+    span: 'md:col-span-4',
+    icon: '🍅',
   },
   {
     name: 'CropCast',
@@ -17,6 +29,8 @@ const products = [
     status: 'live',
     metrics: ['12 futures', '53 agents', 'Daily AI'],
     color: 'blue',
+    span: 'md:col-span-2',
+    icon: '🌾',
   },
   {
     name: '@fridgey_raid',
@@ -26,83 +40,92 @@ const products = [
     status: 'live',
     metrics: ['Neo4j KG', 'KAMIS data', 'Daily posts'],
     color: 'orange',
+    span: 'md:col-span-2',
+    icon: '🍳',
   },
   {
     name: '@pourandpair',
     tagline: 'Pour & Pair — Beverage Intelligence',
-    description: 'Threads channel for wine, whisky & food pairing. Drink knowledge graph with sommelier-grade intelligence.',
+    description: 'Sommelier AI for hyper-specific wine and food pairing. Drink knowledge graph with sommelier-grade intelligence.',
     url: 'https://www.threads.com/@pourandpair',
     status: 'live',
     metrics: ['Drink KG', 'Pairing AI', 'Nightly posts'],
     color: 'purple',
+    span: 'md:col-span-2',
+    icon: '🍷',
   },
   {
     name: 'Tessera',
     tagline: 'Art Intelligence for Professionals',
-    description: 'MCP-powered knowledge graph for curators, gallerists & collectors. CIDOC CRM ontology. Provenance, market signals, and cultural context in one brain.',
+    description: 'MCP-powered knowledge graph for curators, gallerists & collectors. CIDOC CRM ontology.',
     url: null,
     status: 'soon',
     metrics: ['CIDOC CRM', 'Provenance KG', 'Market signals'],
     color: 'pink',
+    span: 'md:col-span-2',
+    icon: '🎨',
   },
 ];
 
-const colorMap: Record<string, { accent: string; dim: string; border: string }> = {
-  green:  { accent: 'text-emerald-400',  dim: 'bg-emerald-400/10',  border: 'border-emerald-400/30' },
-  blue:   { accent: 'text-blue-400',     dim: 'bg-blue-400/10',     border: 'border-blue-400/30' },
-  orange: { accent: 'text-orange-400',   dim: 'bg-orange-400/10',   border: 'border-orange-400/30' },
-  purple: { accent: 'text-purple-400',   dim: 'bg-purple-400/10',   border: 'border-purple-400/30' },
-  pink:   { accent: 'text-pink-400',     dim: 'bg-pink-400/10',     border: 'border-pink-400/30' },
+const colorMap: Record<string, { accent: string; glow: string; badge: string }> = {
+  emerald: { accent: 'text-emerald-400', glow: 'from-emerald-500/8', badge: 'bg-emerald-400/10 text-emerald-400 border-emerald-400/20' },
+  blue:    { accent: 'text-blue-400',    glow: 'from-blue-500/8',    badge: 'bg-blue-400/10 text-blue-400 border-blue-400/20' },
+  orange:  { accent: 'text-orange-400',  glow: 'from-orange-500/8',  badge: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
+  purple:  { accent: 'text-purple-400',  glow: 'from-purple-500/8',  badge: 'bg-purple-400/10 text-purple-400 border-purple-400/20' },
+  pink:    { accent: 'text-pink-400',    glow: 'from-pink-500/8',    badge: 'bg-pink-400/10 text-pink-400 border-pink-400/20' },
 };
 ---
 
 <section id="products" class="py-24 md:py-32">
   <div class="max-w-6xl mx-auto px-6">
     <div class="fade-up mb-16">
-      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// products</p>
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">{tr.products.label}</p>
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-        Live Products
+        {tr.products.title}
       </h2>
       <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">
-        AI-native products built in-house. Each one runs on the same agent infrastructure we sell.
+        {tr.products.sub}
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Bento grid -->
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[240px]">
       {products.map((p) => {
         const c = colorMap[p.color];
         return (
-          <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6 hover:border-[var(--color-line-accent)] transition-colors flex flex-col">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <div class="flex items-center gap-2 mb-1">
-                  <h3 class={`font-bold text-lg ${c.accent}`}>{p.name}</h3>
-                  {p.status === 'live' ? (
-                    <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/30">live</span>
-                  ) : (
-                    <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-pink-400/10 text-pink-400 border border-pink-400/30">soon</span>
-                  )}
-                </div>
-                <p class="text-xs text-[var(--color-muted)]">{p.tagline}</p>
+          <div class={`product-card fade-up ${p.span} rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-8 relative group overflow-hidden hover:border-[var(--color-line-accent)]`}>
+            <!-- Color glow overlay -->
+            <div class={`absolute inset-0 bg-gradient-to-br ${c.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
+            <!-- Icon watermark -->
+            <div class="absolute top-4 right-5 text-5xl opacity-10 group-hover:opacity-20 transition-opacity select-none">{p.icon}</div>
+
+            <div class="relative z-10 flex flex-col h-full">
+              <div class="flex items-center gap-2.5 mb-3">
+                <h3 class={`font-bold text-xl ${c.accent}`}>{p.name}</h3>
+                {p.status === 'live' ? (
+                  <span class={`text-[10px] font-mono px-2 py-0.5 rounded-sm border uppercase tracking-widest ${c.badge}`}>live</span>
+                ) : (
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-[var(--color-surface-3)] text-[var(--color-muted)] border border-[var(--color-line)] uppercase tracking-widest">soon</span>
+                )}
               </div>
-              {p.url && (
-                <a href={p.url} target="_blank" rel="noopener noreferrer"
-                  class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors ml-2 shrink-0">
-                  <span class="font-mono text-sm">↗</span>
-                </a>
-              )}
-            </div>
-
-            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
-              {p.description}
-            </p>
-
-            <div class="flex flex-wrap gap-1.5">
-              {p.metrics.map((m) => (
-                <span class={`text-xs font-mono px-2.5 py-1 rounded-lg border ${c.dim} ${c.border} ${c.accent}`}>
-                  {m}
-                </span>
-              ))}
+              <p class="text-xs text-[var(--color-muted)] mb-4 font-mono">{p.tagline}</p>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1">
+                {p.description}
+              </p>
+              <div class="mt-auto">
+                {p.url ? (
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={`inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest hover:gap-2.5 transition-all ${c.accent}`}
+                  >
+                    Explore <span>↗</span>
+                  </a>
+                ) : (
+                  <span class="text-xs font-mono text-[var(--color-muted)] uppercase tracking-widest">Coming soon</span>
+                )}
+              </div>
             </div>
           </div>
         );

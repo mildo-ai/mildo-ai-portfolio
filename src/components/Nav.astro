@@ -1,65 +1,126 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t, localeConfig, locales, getLocalePath } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const tr = t(lang);
+const currentPath = Astro.url.pathname;
+
 const links = [
-  { label: 'Ventures', href: '#ventures' },
-  { label: 'Products', href: '#products' },
-  { label: 'Services', href: '#services' },
-  { label: 'Work', href: '#work' },
-  { label: 'Contact', href: '#contact' },
+  { label: tr.nav.ventures, href: '#ventures' },
+  { label: tr.nav.products, href: '#products' },
+  { label: tr.nav.services, href: '#services' },
+  { label: tr.nav.work, href: '#work' },
+  { label: tr.nav.contact, href: '#contact' },
 ];
+
+const current = localeConfig[lang];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-line)]">
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="#" class="font-mono font-bold text-[var(--color-accent)] text-lg tracking-tight">
+<!-- Floating pill nav -->
+<nav class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-6xl rounded-xl bg-[var(--color-surface)]/70 backdrop-blur-2xl border border-[var(--color-line)] shadow-2xl shadow-black/50">
+  <div class="flex items-center justify-between px-6 py-3.5">
+    <a href={getLocalePath(lang)} class="font-mono font-bold text-[var(--color-accent)] text-base tracking-tight shrink-0">
       &gt;_ mildo.ai
     </a>
 
-    <!-- Desktop -->
-    <div class="hidden md:flex items-center gap-8">
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-7">
       {links.map((link) => (
         <a
           href={link.href}
-          class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors"
+          class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors tracking-tight"
         >
           {link.label}
         </a>
       ))}
-      <a
-        href="#contact"
-        class="text-sm font-medium px-4 py-2 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-lg hover:opacity-90 transition-opacity"
-      >
-        Let's Talk
-      </a>
     </div>
 
-    <!-- Mobile toggle -->
-    <button
-      id="mobile-toggle"
-      class="md:hidden text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
-      aria-label="Toggle menu"
-    >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 12h18M3 6h18M3 18h18" />
-      </svg>
-    </button>
+    <div class="flex items-center gap-3">
+      <!-- Language switcher -->
+      <div class="relative group hidden sm:block">
+        <button
+          class="flex items-center gap-1.5 text-xs font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors px-2.5 py-1.5 rounded-lg border border-[var(--color-line)] hover:border-[var(--color-line-accent)] cursor-pointer select-none"
+          aria-label="Switch language"
+          tabindex="0"
+        >
+          <span class="text-sm leading-none">{current.flag}</span>
+          <span class="font-medium">{current.label}</span>
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" class="opacity-40 mt-0.5">
+            <path d="M4 6L0.5 2h7L4 6z"/>
+          </svg>
+        </button>
+        <!-- Dropdown -->
+        <div class="absolute right-0 top-full mt-1.5 py-1 w-28 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-lg shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150 z-50">
+          {locales.map((lc) => (
+            <a
+              href={getLocalePath(lc, currentPath)}
+              data-lang={lc}
+              class={`flex items-center gap-2 px-3 py-2 text-xs font-mono hover:bg-[var(--color-surface-3)] transition-colors ${lc === lang ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-secondary)]'}`}
+              onclick={`localStorage.setItem('mildo-lang','${lc}')`}
+            >
+              <span class="text-sm">{localeConfig[lc].flag}</span>
+              <span>{localeConfig[lc].label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <a
+        href="#contact"
+        class="hidden sm:inline-flex items-center justify-center text-xs font-medium px-4 py-2 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-lg hover:opacity-90 transition-opacity tracking-wide uppercase"
+      >
+        {tr.nav.cta}
+      </a>
+
+      <!-- Mobile toggle -->
+      <button
+        id="mobile-toggle"
+        class="md:hidden text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+        aria-label="Toggle menu"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden hidden border-t border-[var(--color-line)] bg-[var(--color-bg)]/95 backdrop-blur-md">
-    <div class="px-6 py-4 flex flex-col gap-4">
+  <div id="mobile-menu" class="md:hidden hidden border-t border-[var(--color-line)] rounded-b-xl">
+    <div class="px-6 py-4 flex flex-col gap-3">
       {links.map((link) => (
         <a
           href={link.href}
-          class="mobile-link text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors"
+          class="mobile-link text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors py-1"
         >
           {link.label}
         </a>
       ))}
+
+      <!-- Mobile language switcher -->
+      <div class="flex flex-wrap gap-2 pt-3 border-t border-[var(--color-line)]">
+        {locales.map((lc) => (
+          <a
+            href={getLocalePath(lc, currentPath)}
+            data-lang={lc}
+            class={`mobile-link text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${lc === lang ? 'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent-dim)]' : 'border-[var(--color-line)] text-[var(--color-muted)] hover:border-[var(--color-line-accent)]'}`}
+            onclick={`localStorage.setItem('mildo-lang','${lc}')`}
+          >
+            {localeConfig[lc].flag} {localeConfig[lc].label}
+          </a>
+        ))}
+      </div>
+
       <a
         href="#contact"
-        class="mobile-link text-sm font-medium px-4 py-2 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-lg text-center hover:opacity-90 transition-opacity"
+        class="mobile-link mt-1 text-sm font-medium px-4 py-2 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-lg text-center hover:opacity-90 transition-opacity uppercase tracking-wide"
       >
-        Let's Talk
+        {tr.nav.cta}
       </a>
     </div>
   </div>

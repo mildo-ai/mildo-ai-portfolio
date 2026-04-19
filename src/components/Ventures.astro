@@ -1,69 +1,69 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const tr = t(lang);
+
 const ventures = [
   {
     status: 'active',
-    statusLabel: 'Operating',
+    statusLabel: 'OPERATING',
     name: 'Mildo AI',
     tagline: 'Agent Architecture & Consulting',
     description: 'We design and build multi-agent systems for enterprises. From single workflow automation to full-company AI orchestration across 9 departments.',
     metrics: ['200+ agents shipped', '8 production projects', '4 LLM tiers'],
-    tags: ['Claude Code', 'Multi-Agent', 'Knowledge Graph', 'MCP'],
     url: null,
   },
   {
     status: 'building',
-    statusLabel: 'Building',
+    statusLabel: 'BUILDING',
     name: '밀도 농업회사법인',
     tagline: 'Premium San Marzano Smart Farm',
     description: 'Controlled-environment agriculture in Sangju, Korea. Data-driven cultivation of authentic San Marzano tomatoes with AI-optimized nutrient systems and IoT sensor arrays.',
     metrics: ['1,000평 온실', '경북 상주', '2027 첫 수확'],
-    tags: ['Smart Farm', 'IoT', 'Agritech', 'Data-Driven'],
     url: 'https://mildo.farm',
   },
   {
     status: 'active',
-    statusLabel: 'Operating',
+    statusLabel: 'OPERATING',
     name: 'CruisePick',
     tagline: 'AI-Powered Travel Intelligence',
     description: 'Travel tech platform leveraging AI agents for cruise and tour curation. Knowledge graph-backed recommendation systems for the premium travel segment.',
     metrics: ['AI-curated', 'KG-backed', 'Multi-agent'],
-    tags: ['Travel Tech', 'LLM', 'Recommendation', 'Knowledge Graph'],
     url: null,
   },
 ];
 
 const statusStyle: Record<string, string> = {
-  active: 'text-[var(--color-accent-green)] bg-green-500/10 border-green-500/30',
-  building: 'text-amber-400 bg-amber-400/10 border-amber-400/30',
-  planned: 'text-[var(--color-muted)] bg-white/5 border-white/10',
+  active: 'text-[var(--color-accent-green)] bg-[var(--color-accent-green-dim)] border-green-500/20',
+  building: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
 };
 ---
 
 <section id="ventures" class="py-24 md:py-32 bg-[var(--color-surface)]">
   <div class="max-w-6xl mx-auto px-6">
     <div class="fade-up mb-16">
-      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">// ventures</p>
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">{tr.ventures.label}</p>
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-        Portfolio of Companies
+        {tr.ventures.title}
       </h2>
       <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">
-        Mildo AI is a holding company. We build and operate intelligent businesses — from AI consulting to agritech to travel.
+        {tr.ventures.sub}
       </p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6">
       {ventures.map((v) => (
-        <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] p-8 hover:border-[var(--color-line-accent)] transition-colors flex flex-col">
-          <div class="flex items-center justify-between mb-6">
-            <span class={`text-xs font-mono px-2.5 py-1 rounded-full border ${statusStyle[v.status]}`}>
+        <div class="venture-card fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] p-8 hover:border-[var(--color-line-accent)] hover:bg-[var(--color-surface-2)] transition-colors flex flex-col">
+          <div class="mb-6">
+            <span class={`text-[10px] font-mono font-medium px-2.5 py-1 rounded-sm border uppercase tracking-widest ${statusStyle[v.status]}`}>
               {v.statusLabel}
             </span>
-            {v.url && (
-              <a href={v.url} target="_blank" rel="noopener noreferrer"
-                class="text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
-                ↗
-              </a>
-            )}
           </div>
 
           <h3 class="text-xl font-bold mb-1">{v.name}</h3>
@@ -72,23 +72,24 @@ const statusStyle: Record<string, string> = {
             {v.description}
           </p>
 
-          <div class="space-y-4">
-            <div class="flex flex-col gap-1.5">
-              {v.metrics.map((m) => (
-                <div class="text-xs font-mono text-[var(--color-muted)] flex items-center gap-2">
-                  <span class="text-[var(--color-accent-green)]">→</span> {m}
-                </div>
-              ))}
-            </div>
-
-            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-[var(--color-line)]">
-              {v.tags.map((tag) => (
-                <span class="text-xs font-mono px-2 py-0.5 rounded bg-[var(--color-surface)] text-[var(--color-muted)]">
-                  {tag}
-                </span>
-              ))}
-            </div>
+          <div class="mt-auto space-y-2 mb-6">
+            {v.metrics.map((m) => (
+              <div class="text-xs font-mono text-[var(--color-muted)] flex items-center gap-2">
+                <span class="text-[var(--color-accent-green)]">→</span> {m}
+              </div>
+            ))}
           </div>
+
+          {v.url && (
+            <a
+              href={v.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 text-xs font-mono text-[var(--color-accent)] hover:gap-3 transition-all uppercase tracking-widest"
+            >
+              View Entity <span>→</span>
+            </a>
+          )}
         </div>
       ))}
     </div>

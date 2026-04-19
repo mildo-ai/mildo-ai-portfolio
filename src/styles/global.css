@@ -10,14 +10,14 @@
   --color-text-secondary: #9898a8;
   --color-muted: #6a6a7a;
   --color-accent: #60a5fa;
-  --color-accent-dim: rgba(96, 165, 250, 0.15);
+  --color-accent-dim: rgba(96, 165, 250, 0.12);
   --color-accent-2: #a78bfa;
   --color-accent-green: #4ade80;
-  --color-accent-green-dim: rgba(74, 222, 128, 0.12);
+  --color-accent-green-dim: rgba(74, 222, 128, 0.10);
   --color-line: rgba(255, 255, 255, 0.06);
   --color-line-accent: rgba(96, 165, 250, 0.2);
 
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
 }
 
@@ -30,6 +30,22 @@ body {
   font-family: var(--font-sans);
   color: var(--color-text);
   background: var(--color-bg);
+}
+
+/* Arabic font override */
+:lang(ar) body, :lang(ar) * {
+  font-family: "Noto Naskh Arabic", var(--font-sans);
+}
+
+/* ── Noise overlay ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ── Scroll Animations ── */
@@ -52,24 +68,41 @@ body {
 
 .cursor-blink {
   animation: blink 1s step-end infinite;
+  display: inline-block;
+  width: 0.5rem;
+  height: 1.1em;
+  background: currentColor;
+  vertical-align: text-bottom;
+  margin-left: 0.15em;
 }
 
-/* ── Glow effect ── */
-.glow-card {
+/* ── Venture card left accent bar ── */
+.venture-card {
   position: relative;
   overflow: hidden;
 }
 
-.glow-card::before {
+.venture-card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), transparent 50%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  pointer-events: none;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.venture-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Bento product card glow on hover ── */
+.product-card {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
 }
