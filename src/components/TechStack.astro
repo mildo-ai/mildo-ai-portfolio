@@ -10,11 +10,12 @@ const { lang = 'en' } = Astro.props;
 const tr = t(lang);
 
 const categories = [
-  { name: 'AI / ML',        icon: '{}',  items: ['Claude Code', 'Claude API', 'OpenAI Codex', 'LangChain', 'LangGraph', 'PydanticAI', 'RAG', 'Neo4j KG'] },
-  { name: 'Backend',        icon: '>_',  items: ['Python', 'FastAPI', 'Node.js'] },
-  { name: 'Frontend',       icon: '</>', items: ['React', 'Next.js', 'TypeScript', 'Astro'] },
-  { name: 'Infrastructure', icon: '[ ]', items: ['AWS', 'Azure', 'GCP', 'Cloudflare Pages', 'Docker', 'Kubernetes'] },
-  { name: 'Data',           icon: '(i)', items: ['Qdrant', 'Neo4j', 'PostgreSQL', 'Redis', 'SQLite'] },
+  { name: 'AI / LLM',         icon: '{}',  items: ['Claude Opus 4.6', 'Claude Sonnet 4.6', 'GPT-5.4 (Codex)', 'Claude Haiku 4.5', 'LangGraph', 'PydanticAI', 'RAG', 'RALPH Loop'] },
+  { name: 'Knowledge Graphs', icon: '(G)', items: ['Neo4j', 'CIDOC CRM', 'Food KG', 'Drink KG', 'Art KG', 'Crop KG', 'KAMIS crawler', 'Cypher'] },
+  { name: 'Agri-Tech / R&D',  icon: '>_',  items: ['GreenLight', 'FSPM', 'Digital Twin', 'ROS2', 'YOLOv8', 'LeRobot', 'Nav2', 'Bayesian RL'] },
+  { name: 'Backend / Data',   icon: '[ ]', items: ['Python', 'FastAPI', 'Node.js', 'InfluxDB', 'PostgreSQL', 'SQLite', 'Kafka', 'Grafana'] },
+  { name: 'Frontend',         icon: '</>',  items: ['React', 'TypeScript', 'Astro', 'Next.js', 'Tailwind', 'Fuse.js', 'MapLibre'] },
+  { name: 'Infrastructure',   icon: '(i)', items: ['Cloudflare Pages', 'Raspberry Pi', 'Slack Socket', 'launchd', 'WoL', 'SSH', 'Docker', 'AWS'] },
 ];
 ---
 

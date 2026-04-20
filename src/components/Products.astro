@@ -9,12 +9,25 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const tr = t(lang);
 
+// Meta for each of the 17 portfolio items
 const meta = [
-  { url: 'https://subswap.app',                      status: 'live', metrics: ['1K+ ingredients', '10 languages', '$0 infra'], color: 'emerald', span: 'md:col-span-4', icon: '🍅' },
-  { url: 'https://cropcast.app',                     status: 'live', metrics: ['12 futures', '53 agents', 'Daily AI'],        color: 'blue',    span: 'md:col-span-2', icon: '🌾' },
-  { url: 'https://www.threads.com/@fridgey_raid',    status: 'live', metrics: ['Neo4j KG', 'KAMIS data', 'Daily posts'],      color: 'orange',  span: 'md:col-span-2', icon: '🍳' },
-  { url: 'https://www.threads.com/@pourandpair',     status: 'live', metrics: ['Drink KG', 'Pairing AI', 'Nightly posts'],    color: 'purple',  span: 'md:col-span-2', icon: '🍷' },
-  { url: null,                                       status: 'soon', metrics: ['CIDOC CRM', 'Provenance KG', 'Market signals'],color: 'pink',    span: 'md:col-span-2', icon: '🎨' },
+  { url: 'https://subswap.app',                      status: 'live',     category: 'Digital',    color: 'emerald', tags: ['React', 'TypeScript', 'Fuse.js', 'CF Pages'] },
+  { url: 'https://cropcast.app',                     status: 'live',     category: 'Digital',    color: 'blue',    tags: ['Python', 'Neo4j', 'Claude API', '49 Agents'] },
+  { url: 'https://www.threads.com/@fridgey_raid',    status: 'live',     category: 'Digital',    color: 'orange',  tags: ['Neo4j', 'KAMIS', 'Threads API', 'Multi-Agent'] },
+  { url: 'https://www.threads.com/@pourandpair',     status: 'live',     category: 'Digital',    color: 'purple',  tags: ['Neo4j', 'KG 18K+', 'Threads API'] },
+  { url: null,                                       status: 'building', category: 'Digital',    color: 'pink',    tags: ['CIDOC CRM', 'Neo4j', 'MCP', 'Provenance'] },
+  { url: null,                                       status: 'building', category: 'Digital',    color: 'sky',     tags: ['50 Agents', 'MapLibre', 'Subscription'] },
+  { url: null,                                       status: 'live',     category: 'Digital',    color: 'teal',    tags: ['AI Curation', 'KG', 'Multi-Agent'] },
+  { url: 'https://mildo.farm',                       status: 'live',     category: 'Farm',       color: 'green',   tags: ['Astro', 'Tailwind', 'CF Pages'] },
+  { url: null,                                       status: 'rnd',      category: 'R&D',        color: 'lime',    tags: ['GreenLight', 'FSPM', 'Digital Twin'] },
+  { url: null,                                       status: 'rnd',      category: 'R&D',        color: 'yellow',  tags: ['ROS2', 'YOLOv8', 'LeRobot', 'Nav2'] },
+  { url: null,                                       status: 'building', category: 'Trading',    color: 'amber',   tags: ['Multi-Agent', 'Crypto', 'Risk Mgmt'] },
+  { url: null,                                       status: 'live',     category: 'Trading',    color: 'rose',    tags: ['53 Agents', 'OHLCV', 'Forecasting'] },
+  { url: null,                                       status: 'live',     category: 'Infra',      color: 'slate',   tags: ['Raspberry Pi', 'Slack', 'SSH', 'WoL'] },
+  { url: 'https://github.com/mildo-ai/claude-agents-hub', status: 'live', category: 'Infra',   color: 'indigo',  tags: ['DGM-H', 'Plugin Installer', 'RTK'] },
+  { url: null,                                       status: 'building', category: 'Digital',    color: 'violet',  tags: ['Threads', 'AI Content', 'Travel'] },
+  { url: null,                                       status: 'building', category: 'Digital',    color: 'fuchsia', tags: ['Neo4j', 'Auction', 'Provenance'] },
+  { url: null,                                       status: 'live',     category: 'Infra',      color: 'cyan',    tags: ['InfluxDB', 'Kafka', 'Grafana', 'ETL'] },
 ];
 
 const colorMap: Record<string, { accent: string; glow: string; badge: string }> = {
@@ -23,6 +36,39 @@ const colorMap: Record<string, { accent: string; glow: string; badge: string }> 
   orange:  { accent: 'text-orange-400',  glow: 'from-orange-500/8',  badge: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
   purple:  { accent: 'text-purple-400',  glow: 'from-purple-500/8',  badge: 'bg-purple-400/10 text-purple-400 border-purple-400/20' },
   pink:    { accent: 'text-pink-400',    glow: 'from-pink-500/8',    badge: 'bg-pink-400/10 text-pink-400 border-pink-400/20' },
+  sky:     { accent: 'text-sky-400',     glow: 'from-sky-500/8',     badge: 'bg-sky-400/10 text-sky-400 border-sky-400/20' },
+  teal:    { accent: 'text-teal-400',    glow: 'from-teal-500/8',    badge: 'bg-teal-400/10 text-teal-400 border-teal-400/20' },
+  green:   { accent: 'text-green-400',   glow: 'from-green-500/8',   badge: 'bg-green-400/10 text-green-400 border-green-400/20' },
+  lime:    { accent: 'text-lime-400',    glow: 'from-lime-500/8',    badge: 'bg-lime-400/10 text-lime-400 border-lime-400/20' },
+  yellow:  { accent: 'text-yellow-400',  glow: 'from-yellow-500/8',  badge: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+  amber:   { accent: 'text-amber-400',   glow: 'from-amber-500/8',   badge: 'bg-amber-400/10 text-amber-400 border-amber-400/20' },
+  rose:    { accent: 'text-rose-400',    glow: 'from-rose-500/8',    badge: 'bg-rose-400/10 text-rose-400 border-rose-400/20' },
+  slate:   { accent: 'text-slate-400',   glow: 'from-slate-500/8',   badge: 'bg-slate-400/10 text-slate-400 border-slate-400/20' },
+  indigo:  { accent: 'text-indigo-400',  glow: 'from-indigo-500/8',  badge: 'bg-indigo-400/10 text-indigo-400 border-indigo-400/20' },
+  violet:  { accent: 'text-violet-400',  glow: 'from-violet-500/8',  badge: 'bg-violet-400/10 text-violet-400 border-violet-400/20' },
+  fuchsia: { accent: 'text-fuchsia-400', glow: 'from-fuchsia-500/8', badge: 'bg-fuchsia-400/10 text-fuchsia-400 border-fuchsia-400/20' },
+  cyan:    { accent: 'text-cyan-400',    glow: 'from-cyan-500/8',    badge: 'bg-cyan-400/10 text-cyan-400 border-cyan-400/20' },
+};
+
+const statusBadge: Record<string, string> = {
+  live:     'bg-[var(--color-accent-green-dim)] text-[var(--color-accent-green)] border-green-500/20',
+  building: 'bg-amber-400/10 text-amber-400 border-amber-400/20',
+  rnd:      'bg-blue-400/10 text-blue-400 border-blue-400/20',
+};
+
+const statusLabel: Record<string, string> = {
+  live:     'LIVE',
+  building: 'BUILDING',
+  rnd:      'R&D',
+};
+
+// Category labels for filtering display
+const categoryColors: Record<string, string> = {
+  Digital: 'text-[var(--color-muted)]',
+  Farm:    'text-green-500/70',
+  'R&D':   'text-blue-500/70',
+  Trading: 'text-amber-500/70',
+  Infra:   'text-slate-500/70',
 };
 ---
 
@@ -34,27 +80,42 @@ const colorMap: Record<string, { accent: string; glow: string; badge: string }> 
       <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">{tr.products.sub}</p>
     </div>
 
-    <!-- Bento grid -->
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[240px]">
+    <!-- Portfolio grid: 3-column responsive -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {tr.products.items.map((p, i) => {
-        const m = meta[i];
-        const c = colorMap[m.color];
+        const m = meta[i] ?? { url: null, status: 'building', category: 'Digital', color: 'slate', tags: [] };
+        const c = colorMap[m.color] ?? colorMap.slate;
         return (
-          <div class={`product-card fade-up ${m.span} rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-8 relative group overflow-hidden hover:border-[var(--color-line-accent)]`}>
+          <div class={`product-card fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6 relative group overflow-hidden hover:border-[var(--color-line-accent)] transition-all duration-200`}>
             <div class={`absolute inset-0 bg-gradient-to-br ${c.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
-            <div class="absolute top-4 right-5 text-5xl opacity-10 group-hover:opacity-20 transition-opacity select-none">{m.icon}</div>
 
-            <div class="relative z-10 flex flex-col h-full">
-              <div class="flex items-center gap-2.5 mb-3">
-                <h3 class={`font-bold text-xl ${c.accent}`}>{p.name}</h3>
-                {m.status === 'live' ? (
-                  <span class={`text-[10px] font-mono px-2 py-0.5 rounded-sm border uppercase tracking-widest ${c.badge}`}>live</span>
-                ) : (
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-[var(--color-surface-3)] text-[var(--color-muted)] border border-[var(--color-line)] uppercase tracking-widest">soon</span>
-                )}
+            <div class="relative z-10 flex flex-col h-full min-h-[200px]">
+              <!-- Header row -->
+              <div class="flex items-start justify-between gap-2 mb-3">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class={`font-bold text-base ${c.accent}`}>{p.name}</h3>
+                  <span class={`text-[9px] font-mono px-1.5 py-0.5 rounded border uppercase tracking-widest ${statusBadge[m.status]}`}>
+                    {statusLabel[m.status]}
+                  </span>
+                </div>
+                <span class={`text-[9px] font-mono uppercase tracking-wider shrink-0 ${categoryColors[m.category] ?? 'text-[var(--color-muted)]'}`}>
+                  {m.category}
+                </span>
               </div>
-              <p class="text-xs text-[var(--color-muted)] mb-4 font-mono">{p.tagline}</p>
-              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1">{p.description}</p>
+
+              <p class="text-xs text-[var(--color-muted)] mb-3 font-mono leading-relaxed">{p.tagline}</p>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1 mb-4">{p.description}</p>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                {m.tags.map((tag) => (
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--color-surface-2)] text-[var(--color-muted)] border border-[var(--color-line)]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <!-- Link -->
               <div class="mt-auto">
                 {m.url ? (
                   <a

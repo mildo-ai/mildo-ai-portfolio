@@ -10,11 +10,41 @@ const { lang = 'en' } = Astro.props;
 const tr = t(lang);
 
 const caseMeta = [
-  { number: '01', title: 'claude-agents-hub — Cross-Project Agent Hub',   url: 'https://github.com/mildo-ai/claude-agents-hub', tags: ['Claude Code', 'Multi-Agent', 'DGM-H', 'Shell', 'MCP'],          metrics: [{ value: '200+' }, { value: '8' }, { value: '5' }, { value: '90%' }] },
-  { number: '02', title: '47-Agent Enterprise Orchestration',              url: null,                                           tags: ['Claude API', 'Multi-Agent', 'Orchestration', 'RALPH Loop', 'Codex'], metrics: [{ value: '47' },   { value: '9' }, { value: '4' }, { value: '8' }]   },
-  { number: '03', title: 'CropCast — Agricultural Intelligence Platform',  url: 'https://cropcast.app',                         tags: ['Next.js', 'Python', 'Claude API', 'Data Pipeline', 'Cloudflare'],   metrics: [{ value: '5+' },  { value: '50+' }, { value: 'Daily' }, { value: '$0' }] },
-  { number: '04', title: "Food Intelligence KG — Chef's Assistant + Pour & Pair", url: null,                                  tags: ['Neo4j', 'Knowledge Graph', 'Python', 'Threads API', 'KAMIS'],       metrics: [{ value: '6' },   { value: '10K+' }, { value: '2' }, { value: '5' }] },
-  { number: '05', title: 'SubSwap — Global Ingredient Substitute Engine',  url: 'https://subswap.app',                         tags: ['React', 'TypeScript', 'Fuse.js', 'Cloudflare Pages', 'i18n'],       metrics: [{ value: '1,000+' }, { value: '3,005' }, { value: '10' }, { value: '$0' }] },
+  {
+    number: '01',
+    title: 'claude-agents-hub — Cross-Project Agent Installer',
+    url: 'https://github.com/mildo-ai/claude-agents-hub',
+    tags: ['Claude Code', 'DGM-H', 'Shell', 'MCP', 'launchd', 'RTK'],
+    metrics: [{ value: '80+' }, { value: '8+' }, { value: '5' }, { value: '90%' }],
+  },
+  {
+    number: '02',
+    title: 'Mildo Group v2 — 80-Agent Full-Company AI',
+    url: null,
+    tags: ['Claude API', 'Codex', 'RALPH Loop', 'Multi-Agent', 'Orchestration', 'DGM-H'],
+    metrics: [{ value: '80' }, { value: '6' }, { value: '4' }, { value: '11' }],
+  },
+  {
+    number: '03',
+    title: 'Dual Neo4j KG — Food & Drink Threads Channels',
+    url: null,
+    tags: ['Neo4j', 'Knowledge Graph', 'Python', 'Threads API', 'KAMIS', 'Multi-Agent'],
+    metrics: [{ value: '2' }, { value: '28K+' }, { value: '2' }, { value: '5+' }],
+  },
+  {
+    number: '04',
+    title: 'SubSwap — Full SaaS Launch in a Weekend',
+    url: 'https://subswap.app',
+    tags: ['React', 'TypeScript', 'Fuse.js', 'Cloudflare Pages', 'i18n', 'SEO'],
+    metrics: [{ value: '1,054' }, { value: '3,572' }, { value: '10' }, { value: '$0' }],
+  },
+  {
+    number: '05',
+    title: 'mildo-gateway — Raspberry Pi Remote Orchestration',
+    url: null,
+    tags: ['Raspberry Pi', 'Slack API', 'SSH', 'Python', 'WoL', 'launchd'],
+    metrics: [{ value: '2' }, { value: '10+' }, { value: 'Mac1+2' }, { value: '99%' }],
+  },
 ];
 ---
 
@@ -29,6 +59,7 @@ const caseMeta = [
     <div class="space-y-8">
       {caseMeta.map((meta, i) => {
         const c = tr.caseStudies.cases[i];
+        if (!c) return null;
         return (
           <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] p-8 md:p-10 hover:border-[var(--color-line-accent)] transition-colors">
             <div class="flex items-start gap-6 mb-6">
