@@ -9,7 +9,7 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const tr = t(lang);
 
-// Meta for each of the 17 portfolio items
+// Meta for each of the 18 portfolio items
 const meta = [
   { url: 'https://subswap.app',                      status: 'live',     category: 'Digital',    color: 'emerald', tags: ['React', 'TypeScript', 'Fuse.js', 'CF Pages'] },
   { url: 'https://cropcast.app',                     status: 'live',     category: 'Digital',    color: 'blue',    tags: ['Python', 'Neo4j', 'Claude API', '49 Agents'] },
@@ -28,6 +28,7 @@ const meta = [
   { url: null,                                       status: 'building', category: 'Digital',    color: 'violet',  tags: ['Threads', 'AI Content', 'Travel'] },
   { url: null,                                       status: 'building', category: 'Digital',    color: 'fuchsia', tags: ['Neo4j', 'Auction', 'Provenance'] },
   { url: null,                                       status: 'live',     category: 'Infra',      color: 'cyan',    tags: ['InfluxDB', 'Kafka', 'Grafana', 'ETL'] },
+  { url: 'https://myoun.kr',                         status: 'building', category: 'Digital',    color: 'rose',    tags: ['Cloudflare', 'MCP', 'Saju KG', 'iOS'] },
 ];
 
 const colorMap: Record<string, { accent: string; glow: string; badge: string }> = {
