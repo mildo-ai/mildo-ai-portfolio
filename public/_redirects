@@ -1,0 +1,9 @@
+# Legacy locale paths → new structure (root = Korean, /en/ = English)
+/ko / 301
+/ko/* / 301
+/ja /en/ 301
+/ja/* /en/ 301
+/zh /en/ 301
+/zh/* /en/ 301
+/ar /en/ 301
+/ar/* /en/ 301

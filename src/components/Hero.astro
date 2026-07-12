@@ -6,13 +6,15 @@ interface Props {
   lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = 'ko' } = Astro.props;
 const tr = t(lang);
 
-const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/mildo-ai' },
-  { label: 'mildo.farm', href: 'https://mildo.farm' },
-  { label: 'SubSwap', href: 'https://subswap.app' },
+// Live product proof links — every one is in production
+const proofLinks = [
+  { label: 'cropcast.ai', href: 'https://cropcast.ai' },
+  { label: 'provenio.art', href: 'https://provenio.art' },
+  { label: 'subswap.app', href: 'https://subswap.app' },
+  { label: lang === 'ko' ? '묘운 (iOS)' : 'Myoun (iOS)', href: 'https://myoun.kr' },
 ];
 ---
 
@@ -27,50 +29,48 @@ const socialLinks = [
       <!-- Terminal badge -->
       <div class="inline-flex items-center gap-3 bg-[var(--color-surface)] px-4 py-2 rounded-lg mb-8 border border-[var(--color-line)]">
         <span class="font-mono text-sm text-[var(--color-accent-green)]">~ $</span>
-        <span class="font-mono text-sm text-[var(--color-text-secondary)]">mildo --version v3.0 -- agents 170+ -- bus 6</span>
+        <span class="font-mono text-sm text-[var(--color-text-secondary)]">{tr.hero.badge}<span class="cursor-blink"></span></span>
       </div>
 
-      <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
-        <span class="text-[var(--color-text)]">Mildo AI</span>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.15] mb-8">
+        <span class="text-[var(--color-text)]">{tr.hero.taglineTop}</span><br />
+        <span class="text-[var(--color-accent)]">{tr.hero.taglineAccent}</span>
       </h1>
-
-      <p class="font-mono text-xl md:text-2xl text-[var(--color-accent)] mb-8 font-medium">
-        {tr.hero.tagline}<span class="cursor-blink"></span>
-      </p>
 
       <p class="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed mb-12">
         {tr.hero.sub}<br class="hidden md:block" />
         <span class="text-[var(--color-text)]">{tr.hero.highlight}</span>
       </p>
 
-      <!-- Social links -->
-      <div class="flex items-center gap-6 mb-12">
-        {socialLinks.map((link) => (
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-12">
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center px-8 py-3.5 bg-[var(--color-accent)] text-[var(--color-bg)] font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm tracking-wide"
+        >
+          {tr.hero.cta1}
+        </a>
+        <a
+          href="#services"
+          class="inline-flex items-center justify-center px-8 py-3.5 border border-[var(--color-line-accent)] text-[var(--color-accent)] rounded-lg hover:bg-[var(--color-accent-dim)] transition-colors text-sm tracking-wide"
+        >
+          {tr.hero.cta2}
+        </a>
+      </div>
+
+      <!-- Live product proof links -->
+      <div class="flex items-center gap-x-6 gap-y-2 flex-wrap">
+        <span class="text-xs text-[var(--color-muted)] uppercase tracking-wider">{tr.hero.proofLabel}</span>
+        {proofLinks.map((link) => (
           <a
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
             class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm font-mono flex items-center gap-1.5"
           >
-            <span class="text-[var(--color-accent-green)]">&gt;</span> {link.label}
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-green)] inline-block"></span> {link.label}
           </a>
         ))}
-      </div>
-
-      <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a
-          href="#contact"
-          class="inline-flex items-center justify-center px-8 py-3.5 bg-[var(--color-accent)] text-[var(--color-bg)] font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm uppercase tracking-wider"
-        >
-          {tr.hero.cta1}
-        </a>
-        <a
-          href="#products"
-          class="inline-flex items-center justify-center px-8 py-3.5 border border-[var(--color-line-accent)] text-[var(--color-accent)] rounded-lg hover:bg-[var(--color-accent-dim)] transition-colors text-sm uppercase tracking-wider"
-        >
-          {tr.hero.cta2}
-        </a>
       </div>
     </div>
 

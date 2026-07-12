@@ -1,0 +1,96 @@
+---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'ko' } = Astro.props;
+const tr = t(lang);
+
+// Language-neutral metadata for the 4 live products (order matches tr.work.items)
+const workMeta = [
+  {
+    number: '01',
+    url: 'https://cropcast.ai',
+    tags: ['Multi-Agent', 'Knowledge Graph', 'Python', 'LLM Pipeline', 'Automation'],
+  },
+  {
+    number: '02',
+    url: 'https://provenio.art',
+    tags: ['Neo4j', 'CIDOC CRM', 'MCP Server', 'Ontology', 'B2B API'],
+  },
+  {
+    number: '03',
+    url: 'https://subswap.app',
+    tags: ['React', 'TypeScript', 'PWA', 'i18n', 'Serverless'],
+  },
+  {
+    number: '04',
+    url: 'https://myoun.kr',
+    tags: ['iOS', 'Swift', 'LLM', 'Calendrical Engine'],
+  },
+];
+---
+
+<section id="work" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up mb-16">
+      <p class="font-mono text-sm text-[var(--color-accent)] mb-3">{tr.work.label}</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">{tr.work.title}</h2>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-2xl">{tr.work.sub}</p>
+    </div>
+
+    <div class="space-y-8">
+      {workMeta.map((meta, i) => {
+        const w = tr.work.items[i];
+        if (!w) return null;
+        return (
+          <div class="fade-up rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-8 md:p-10 hover:border-[var(--color-line-accent)] transition-colors">
+            <div class="flex items-start gap-6 mb-6">
+              <span class="font-mono text-4xl font-bold text-[var(--color-surface-3)]">{meta.number}</span>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 flex-wrap">
+                  <h3 class="text-xl md:text-2xl font-semibold">{w.name}</h3>
+                  <span class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded border bg-[var(--color-accent-green-dim)] text-[var(--color-accent-green)] border-green-500/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-green)] inline-block"></span>
+                    {tr.work.liveLabel}
+                  </span>
+                  <a
+                    href={meta.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-mono text-xs text-[var(--color-accent)] border border-[var(--color-line-accent)] px-2.5 py-0.5 rounded hover:bg-[var(--color-accent-dim)] transition-colors"
+                  >
+                    ↗ {tr.work.visitLabel}
+                  </a>
+                </div>
+                <p class="text-sm text-[var(--color-muted)] mt-1">{w.tagline}</p>
+              </div>
+            </div>
+
+            <p class="text-[var(--color-text-secondary)] leading-relaxed mb-6 max-w-3xl">{w.description}</p>
+
+            <div class="grid grid-cols-3 gap-4 mb-6 p-4 rounded-lg bg-[var(--color-bg)] max-w-2xl">
+              {w.metrics.map((m) => (
+                <div class="text-center">
+                  <div class="font-mono text-lg md:text-xl font-bold text-[var(--color-accent)]">{m.value}</div>
+                  <div class="text-xs text-[var(--color-muted)] mt-1">{m.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              {meta.tags.map((tag) => (
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[var(--color-accent-dim)] text-[var(--color-accent)] border border-[var(--color-line-accent)]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

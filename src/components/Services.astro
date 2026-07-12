@@ -6,53 +6,58 @@ interface Props {
   lang?: Locale;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = 'ko' } = Astro.props;
 const tr = t(lang);
-
-const prices = ['$3K ~ $5K', '$10K ~ $25K', '$25K ~ $50K', '$3K ~ $8K / mo'];
-const accents = [false, true, false, false];
 ---
 
-<section id="services" class="py-24 md:py-32">
+<section id="services" class="py-24 md:py-32 bg-[var(--color-surface)]">
   <div class="max-w-6xl mx-auto px-6">
     <div class="fade-up mb-16">
       <p class="font-mono text-sm text-[var(--color-accent)] mb-3">{tr.services.label}</p>
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight">{tr.services.title}</h2>
-      <p class="text-[var(--color-text-secondary)] mt-4 max-w-xl">{tr.services.sub}</p>
+      <p class="text-[var(--color-text-secondary)] mt-4 max-w-2xl">{tr.services.sub}</p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid md:grid-cols-3 gap-6">
       {tr.services.packages.map((pkg, i) => (
         <div
           class:list={[
-            'fade-up rounded-xl p-8 border transition-colors',
-            accents[i]
+            'fade-up rounded-xl p-8 border transition-colors flex flex-col relative',
+            i === 0
               ? 'bg-[var(--color-accent-dim)] border-[var(--color-line-accent)] glow-card'
-              : 'bg-[var(--color-surface)] border-[var(--color-line)] hover:border-[var(--color-line-accent)]',
+              : 'bg-[var(--color-bg)] border-[var(--color-line)] hover:border-[var(--color-line-accent)]',
           ]}
         >
-          <div class="flex items-start justify-between mb-4">
-            <div>
-              <h3 class="text-xl font-semibold">{pkg.name}</h3>
-              <p class="font-mono text-sm text-[var(--color-muted)] mt-1">
-                {pkg.timeline === 'Ongoing' ? tr.services.ongoingLabel : pkg.timeline}
-              </p>
-            </div>
-            <div class="font-mono text-lg font-bold text-[var(--color-accent)]">{prices[i]}</div>
+          {i === 0 && (
+            <span class="absolute -top-3 left-8 text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-[var(--color-accent)] text-[var(--color-bg)] font-bold">
+              {tr.services.startBadge}
+            </span>
+          )}
+
+          <div class="flex items-start justify-between mb-5">
+            <span class="font-mono text-4xl font-bold text-[var(--color-surface-3)]" style={i === 0 ? 'color: rgba(96,165,250,0.35)' : ''}>{pkg.step}</span>
+            <span class="font-mono text-sm font-bold text-[var(--color-accent)] bg-[var(--color-surface-2)] border border-[var(--color-line)] px-3 py-1.5 rounded-lg">{pkg.timeline}</span>
           </div>
 
+          <h3 class="text-xl font-semibold mb-3">{pkg.name}</h3>
           <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">{pkg.description}</p>
 
-          <ul class="space-y-2">
+          <ul class="space-y-2.5 mt-auto">
             {pkg.features.map((f) => (
               <li class="text-sm text-[var(--color-text-secondary)] flex items-start gap-2">
-                <span class="text-[var(--color-accent-green)] mt-0.5 shrink-0">+</span>
+                <span class="text-[var(--color-accent-green)] mt-0.5 shrink-0 font-mono">+</span>
                 {f}
               </li>
             ))}
           </ul>
         </div>
       ))}
+    </div>
+
+    <!-- Contract terms note -->
+    <div class="fade-up mt-8 rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] px-6 py-4 flex items-center gap-3 flex-wrap">
+      <span class="font-mono text-xs text-[var(--color-accent-green)]">✓</span>
+      <p class="font-mono text-xs md:text-sm text-[var(--color-text-secondary)]">{tr.services.note}</p>
     </div>
   </div>
 </section>
